@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   getWeatherBtn.addEventListener("click", async () => {
     const city = cityInput.value.trim();
     if (!city) return;
-
     try {
       const weatherData = await fetchWeatherData(city);
       displayWeatherData(weatherData);
@@ -34,7 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
     return data;
   }
 
-  function displayWeatherData() {}
+  function displayWeatherData(data) {
+    console.log(data);
+    const { name, main, weather } = data;
+    cityNameDisplay.textContent = name;
+    temperatureDisplay.textContent = `Temperature: ${main.temp}`;
+    descriptionDisplay.textContent = `Weather: ${weather[0].description}`;
+
+    weatherInfo.classList.remove("hidden");
+    errorDisplay.classList.add("hidden");
+  }
   function showError() {
     weatherInfo.classList.add("hidden");
     errorDisplay.classList.remove("hidden");
